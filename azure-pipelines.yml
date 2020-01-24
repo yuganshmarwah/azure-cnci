@@ -70,7 +70,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/app/azure-cnci.yaml
+                $(Pipeline.Workspace)/azure-cnci.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
