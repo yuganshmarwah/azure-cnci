@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: yuganshmarwahazurecnci 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yuganshmarwahazurecnci 
+    spec:
+      containers:
+        - name: yuganshmarwahazurecnci 
+          image: azurecnci.azurecr.io/yuganshmarwahazurecnci
+          ports:
+          - containerPort: 80
