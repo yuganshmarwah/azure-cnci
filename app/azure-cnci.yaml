@@ -1,22 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gcp-cnci-example-app
+  name: azure-cnci-example-app
   labels:
-    app: gcp-cnci-example-app
+    app: azure-cnci-example-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gcp-cnci-example-app
+      app: azure-cnci-example-app
   template:
     metadata:
       labels:
-        app: gcp-cnci-example-app
+        app: azure-cnci-example-app
     spec:
       containers:
-      - name: gcp-cnci-example-app
-        image: IMAGE_TO_DEPLOY
+      - name: azure-cnci-example-app
+        image: azurecnci.azurecr.io/azure-cnci-example-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
@@ -26,10 +27,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: gcp-cnci-example-app
+  name: azure-cnci-example-app
 spec:
   selector:
-    app: gcp-cnci-example-app
+    app: azure-cnci-example-app
   ports:
   - protocol: TCP
     port: 80
