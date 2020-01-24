@@ -41,8 +41,8 @@ stages:
         tags: |
           $(tag)
           
-    - publish: app/azure-cnci.yaml
-      artifact: manifests/azure-cnci.yaml
+    - publish: app/manifests
+      artifact: manifests
 
 - stage: Deploy
   displayName: Deploy stage
@@ -70,7 +70,8 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/azure-cnci.yaml
+                $(Pipeline.Workspace)/manifests/deployment.yaml
+                $(Pipeline.Workspace)/manifests/service.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
