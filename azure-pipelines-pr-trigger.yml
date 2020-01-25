@@ -3,7 +3,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 pr:
-- master
+  autoCancel: false
+  branches:
+    include:
+    - master
 
 resources:
 - repo: self
