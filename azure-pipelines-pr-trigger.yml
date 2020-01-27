@@ -35,7 +35,7 @@ stages:
       vmImage: $(vmImageName)
     steps:
     - script: |
-              curl -H "Content-Type: application/json" -X POST -d '{"jobName":"${Agent.JobName}","jobStatus": "${AGENT_JOBSTATUS}","buildId":"${Build.BuildId}"}' https://azure-cnci-functions.azurewebsites.net/api/build_listener?code=OBmXvc2K6P2VxK6P2VxK6P2VxVvCdB89gChyHbzwTS/YYGWWndAbmA==
+              curl -H "Content-Type: application/json" -X POST -d '{"jobName":"${Agent.JobName}","jobStatus": "${AGENT_JOBSTATUS}","buildId":"${Build.BuildId}"}' https://azure-cnci-functions.azurewebsites.net/api/build_listener?code=GnvFwaN0f9sM0iqMxvrq1uJcsPneFi6LsCpLOMSM3WNm/meuVVkFXA==
 
     - script: |
               cd app
