@@ -28,21 +28,30 @@ variables:
 stages:
 - stage: Build
   displayName: Build stage
-  jobs:  
-  - job: Test
-    displayName: Unit Tests
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - bash: cd app && npm install && npm test        
-    
+  jobs:       
   - job: Build
     displayName: Build
-    dependsOn: Test
-    condition: failed()
     pool:
       vmImage: $(vmImageName)
     steps:
+    - task: AzureFunction@1
+      inputs:
+        function: 'https://azure-cnci-functions.azurewebsites.net/api/build_listener'
+        key: 'OBmXvc2K6P2VxK6P2VxK6P2VxVvCdB89gChyHbzwTS/YYGWWndAbmA=='
+        method: 'POST'
+        body: |
+          {
+          "jobName":"${Agent.JobName}",
+          "jobStatus": "${AGENT_JOBSTATUS}",
+          "buildId":"${Build.BuildId}"
+          }
+        waitForCompletion: 'false'
+
+    - script: |
+              cd app
+              npm install
+              npm test
+
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
@@ -50,4 +59,4 @@ stages:
         repository: '$(imageRepository)'
         command: 'build'
         Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+        tags: '$(tag)''
