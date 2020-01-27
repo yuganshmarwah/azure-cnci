@@ -34,18 +34,8 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: AzureFunction@1
-      inputs:
-        function: 'https://azure-cnci-functions.azurewebsites.net/api/build_listener'
-        key: 'OBmXvc2K6P2VxK6P2VxK6P2VxVvCdB89gChyHbzwTS/YYGWWndAbmA=='
-        method: 'POST'
-        body: |
-          {
-          "jobName":"${Agent.JobName}",
-          "jobStatus": "${AGENT_JOBSTATUS}",
-          "buildId":"${Build.BuildId}"
-          }
-        waitForCompletion: 'false'
+    - script: |
+              curl -H "Content-Type: application/json" -X POST -d '{"jobName":"'${Agent.JobName}'","jobStatus": "'${AGENT_JOBSTATUS}'","buildId":"'${Build.BuildId}'"}' https://azure-cnci-functions.azurewebsites.net/api/build_listener?code=OBmXvc2K6P2VxK6P2VxK6P2VxVvCdB89gChyHbzwTS/YYGWWndAbmA==
 
     - script: |
               cd app
