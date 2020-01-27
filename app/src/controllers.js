@@ -2,7 +2,7 @@ const config = require('./../config')
 
 function hello() { 
     return  { 
-        msg: 'Hello, first pipeline build 5!', 
+        msg: 'Hello, first pipeline build 6!', 
         environment: config.ENV_NAME
     }
 };
