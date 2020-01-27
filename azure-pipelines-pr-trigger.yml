@@ -39,6 +39,7 @@ stages:
   - job: Build
     displayName: Build
     dependsOn: Test
+    condition: failed()
     pool:
       vmImage: $(vmImageName)
     steps:
