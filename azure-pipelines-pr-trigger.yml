@@ -59,4 +59,4 @@ stages:
         repository: '$(imageRepository)'
         command: 'build'
         Dockerfile: '**/Dockerfile'
-        tags: '$(tag)''
+        tags: '$(tag)'
