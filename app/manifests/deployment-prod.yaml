@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: azure-cnci-example-app
-        image: azurecnci.azurecr.io/azure-cnci-example-app:latest
+        image: azurecnci.azurecr.io/azure-cnci-example-app-prod:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
