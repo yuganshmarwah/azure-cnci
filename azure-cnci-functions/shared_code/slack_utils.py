@@ -1,5 +1,7 @@
 from slack import WebClient
 import ssl
+import requests
+import logging
 
 def get_ssl_context():
         '''
@@ -26,6 +28,10 @@ def get_client(access_token):
     
     return client
 
-def send_message(client, message, channel):
+def send_message(client, channel, message=None, attachments=None):
     client.chat_postMessage(channel=channel,
-                            text=message)
+                            text=message,
+                            attachments=attachments)
+
+def send_response(url, data):
+    logging.info(requests.post(url=url, json = data))
