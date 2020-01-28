@@ -21,7 +21,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             build_pipeline = resource.get("definition").get("name")
         elif event_type == "ms.vss-pipelines.run-state-changed-event":
             event_message = event.get("message").get("text")
-            regex = r"buildId=([0-9]{2})"
+            regex = r"buildId=([0-9]*)"
             build_id_search = re.search(regex, event.get("message").get("html"), re.IGNORECASE)
 
             if build_id_search:
@@ -35,7 +35,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 status = "cancelled"
             else:
                 raise Exception("No other event to he handled with event type {event_type}".format(event_type=event_type))
-
+        logging.info("Build Id:"+str(build_id))
         LOG = "<"+config.AZURE_PIPELINE_BUILD_RESULT_URL.format(build_id=build_id)+"| `Build Number: {build_id}`>".format(build_id=build_id)
 
         if status == "succeeded":
@@ -43,9 +43,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             if reason == "validateShelveset":
                 message += " ready to merge."
             elif reason == "individualCI" and build_pipeline == config.STAGE_BUILD_PIPELINE:
-                message += "\n Click <"+config.STAGE_ENV_URL+"| here to go to staging environment"
+                message += "\n Click <"+config.STAGE_ENV_URL+"| here> to go to staging environment"
             elif build_pipeline == config.PROD_BUILD_PIPELINE:
-                message += "\n Click <"+config.PROD_ENV_URL+"| here to go to production environment"
+                message += "\n Click <"+config.PROD_ENV_URL+"| here> to go to production environment"
         elif status == "failed":
             message = "Build `failed` for {log_url}".format(log_url=LOG)
         elif status == "inprogress":
