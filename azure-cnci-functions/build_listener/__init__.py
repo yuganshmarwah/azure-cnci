@@ -40,7 +40,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         if status == "succeeded":
             message = "Build `successfull` for {log_url}".format(log_url=LOG)
-            if reason == "validateShelveset"
+            if reason == "validateShelveset":
                 message += " ready to merge."
             elif reason == "individualCI" and build_pipeline == config.STAGE_BUILD_PIPELINE:
                 message += "\n Click <"+config.STAGE_ENV_URL+"| here to go to staging environment"

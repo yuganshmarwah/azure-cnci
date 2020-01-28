@@ -1,3 +1,4 @@
 node_modules/
 .DS_Store
 .vscode
+azure-cnci-functions/azure-functions-core-tools/*
